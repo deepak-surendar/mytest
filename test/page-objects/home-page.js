@@ -1,10 +1,7 @@
-var webdriver = require('selenium-webdriver');
+const webdriver = require('selenium-webdriver');
+const By = webdriver.By;
 
-var HomePage = function () {
-    var By = webdriver.By,
-        driver = new webdriver.Builder()
-            .forBrowser('chrome')
-            .build();
+var HomePage = function (driver) {
 
     this.getHeader = function () {
         var header = driver.findElement(By.id('PageTitle'));

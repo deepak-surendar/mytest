@@ -1,30 +1,34 @@
 var LoginPage = require('./page-objects/login-page');
 var HomePage = require('./page-objects/home-page');
 var expect = require('chai').expect;
-var test = require('selenium-webdriver/testing');
+const webdriver = require('selenium-webdriver');
+const driver = new webdriver.Builder()
+    .forBrowser('chrome')
+    .build();
 
-test.describe('login page', function () {
-   var loginPage = new LoginPage();
-   var homePage;
+describe('login page', function () {
 
-   test.beforeEach(function () {
-       loginPage.get();
-       loginPage.OpenSignInMenu();
-   });
+    var loginPage = new LoginPage(driver);
+    var homePage;
 
-   test.it('should sign in successfully', function () {
-       loginPage.enterUserName();
-       loginPage.enterPassword();
-       loginPage.SignIn();
+    beforeEach(function () {
+        loginPage.get();
+        loginPage.OpenSignInMenu();
+    });
 
-       homePage = new HomePage();
-       homePage.getHeader().then(function (value) {
-           expect(value).to.equal('RSPbyCSA Portal Dashboard');
-       });
+    it('should sign in successfully', function (done) {
+        loginPage.enterUserName();
+        loginPage.enterPassword();
+        loginPage.SignIn();
 
-   });
+        homePage = new HomePage(driver);
+        homePage.getHeader().then(function (value) {
+            expect(value).to.equal('RSPbyCSA Portal Dashboard');
+        });
+        return done;
+    });
 
-   test.after(function () {
-       loginPage.exit();
-   });
+    after(function () {
+        loginPage.exit();
+    });
 });

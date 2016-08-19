@@ -1,13 +1,7 @@
-/**
- * Created by nbnuser on 18/08/2016.
- */
-var webdriver = require('selenium-webdriver');
+const webdriver = require('selenium-webdriver');
+const By = webdriver.By;
 
-var LoginPage = function () {
-    var By = webdriver.By,
-        driver = new webdriver.Builder()
-            .forBrowser('chrome')
-            .build();
+var LoginPage = function (driver) {
 
     var signInMenu = driver.findElement(By.id('login'));
     var userId = driver.findElement(By.id('username'));
@@ -17,7 +11,7 @@ var LoginPage = function () {
     this.get = function () {
         driver.get('https://dev-rspcsa.slb.nbndc.local/rsp_by_csa/#/');
     };
-    
+
     this.OpenSignInMenu = function () {
         signInMenu.click();
     };
@@ -46,5 +40,3 @@ var LoginPage = function () {
 };
 
 module.exports = LoginPage;
-
-
