@@ -9,7 +9,7 @@ var LoginPage = function (driver) {
     var submitBtn = driver.findElement(By.css('button[type=submit]'));
 
     this.get = function () {
-        driver.get('https://dev-rspcsa.slb.nbndc.local/rsp_by_csa/#/');
+        driver.get('https://ci-rspcsa.slb.nbndc.local/rsp_by_csa/#/');
     };
 
     this.OpenSignInMenu = function () {

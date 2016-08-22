@@ -4,7 +4,7 @@
   "description": "Page object model with SeleniumJS, mocha and chai",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha test/login.js test/home.js test/rsp.js"
   },
   "author": "Deepak",
   "license": "ISC",

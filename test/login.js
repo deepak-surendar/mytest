@@ -2,6 +2,7 @@ var LoginPage = require('./page-objects/login-page');
 var HomePage = require('./page-objects/home-page');
 var expect = require('chai').expect;
 const webdriver = require('selenium-webdriver');
+const until = webdriver.until;
 const driver = new webdriver.Builder()
     .forBrowser('chrome')
     .build();
@@ -9,7 +10,7 @@ const driver = new webdriver.Builder()
 describe('login page', function () {
 
     var loginPage = new LoginPage(driver);
-    var homePage;
+    var homePage = new HomePage(driver);
 
     beforeEach(function () {
         loginPage.get();
@@ -21,7 +22,7 @@ describe('login page', function () {
         loginPage.enterPassword();
         loginPage.SignIn();
 
-        homePage = new HomePage(driver);
+        driver.wait(until.elementLocated(homePage.getH()), 2000);
         homePage.getHeader().then(function (value) {
             expect(value).to.equal('RSPbyCSA Portal Dashboard');
             done();
