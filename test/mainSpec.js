@@ -24,11 +24,11 @@ describe('login page', function () {
         homePage = new HomePage(driver);
         homePage.getHeader().then(function (value) {
             expect(value).to.equal('RSPbyCSA Portal Dashboard');
+            done();
         });
-        return done;
     });
 
-    after(function () {
+    afterEach(function () {
         loginPage.exit();
     });
 });
