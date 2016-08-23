@@ -12,14 +12,26 @@ describe('login page', function () {
     var loginPage = new LoginPage(driver);
     var homePage = new HomePage(driver);
 
-    beforeEach(function () {
+    before(function () {
         loginPage.get();
-        loginPage.OpenSignInMenu();
+        return loginPage.OpenSignInMenu();
+    });
+
+    it('should fail signin', function (done) {
+        loginPage.enterUserName('foo');
+        loginPage.enterPassword('foo');
+        loginPage.SignIn();
+
+        driver.wait(until.elementLocated(loginPage.getE()), 2000);
+        loginPage.getError().getText().then(function (value) {
+            expect(value).to.equal('Failed to sign in! Please check your credentials and try again.');
+            done();
+        });
     });
 
     it('should sign in successfully', function (done) {
-        loginPage.enterUserName();
-        loginPage.enterPassword();
+        loginPage.enterUserName('v-deepaksurendar');
+        loginPage.enterPassword('siddhu123.');
         loginPage.SignIn();
 
         driver.wait(until.elementLocated(homePage.getH()), 2000);
@@ -29,7 +41,7 @@ describe('login page', function () {
         });
     });
 
-    afterEach(function () {
-        loginPage.exit();
+    after(function () {
+        return driver.quit();
     });
 });

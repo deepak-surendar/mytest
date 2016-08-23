@@ -16,13 +16,13 @@ describe('rsp page', function () {
     before(function (done) {
         loginPage.get();
         loginPage.OpenSignInMenu();
-        loginPage.enterUserName();
-        loginPage.enterPassword();
+        loginPage.enterUserName('v-deepaksurendar');
+        loginPage.enterPassword('siddhu123.');
         loginPage.SignIn();
-        done();
+        return done();
     });
 
-    it('should add new RSP', function (done) {
+    it('should display header in Add new RSP page', function (done) {
         driver.wait(until.elementLocated(homePage.getH()), 2000);
         homePage.addRsp();
         driver.wait(until.elementLocated(rspPage.getH()), 2000);
@@ -32,7 +32,23 @@ describe('rsp page', function () {
         });
     });
 
-    afterEach(function () {
-        driver.quit();
+    it('should be able to create new RSP', function (done) {
+        //driver.wait(until.elementLocated(homePage.getH()), 2000);
+        //homePage.addRsp();
+        driver.wait(until.elementLocated(rspPage.getH()), 2000);
+        rspPage.selectRspType('RESELLER');
+        rspPage.fillName('testRSP');
+        rspPage.cancel();
+        driver.wait(until.elementLocated(rspPage.getCancelDialogText()), 2000);
+        rspPage.cancelYes();
+        driver.wait(until.elementLocated(homePage.getH()), 2000);
+        homePage.getHeader().then(function (value) {
+            expect(value).to.equal('RSPbyCSA Portal Dashboard');
+            done();
+        });
+    });
+
+    after(function () {
+        return driver.quit();
     });
 });

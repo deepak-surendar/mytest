@@ -4,6 +4,8 @@ const until = webdriver.until;
 
 var HomePage = function (driver) {
 
+    var addNewButton = By.css('button[ui-sref="rsp.new"]');
+
     this.getHeader = function () {
         return driver.findElement(By.id('PageTitle')).getText();
     };
@@ -13,11 +15,11 @@ var HomePage = function (driver) {
     };
 
     this.getAddRspButton = function () {
-        return driver.findElement(By.css('button[ui-sref="rsp.new"]'));
+        return driver.findElement(addNewButton);
     };
 
     this.addRsp = function () {
-        driver.findElement(By.css('button[ui-sref="rsp.new"]')).click();
+        driver.findElement(addNewButton).click();
     };
 };
 

@@ -8,6 +8,9 @@ var LoginPage = function (driver) {
     var password = driver.findElement(By.id('password'));
     var submitBtn = driver.findElement(By.css('button[type=submit]'));
 
+    // var alertDanger = By.css('.alert-danger');
+    var alertDanger = By.css('div[class="alert alert-danger"]');
+
     this.get = function () {
         driver.get('https://ci-rspcsa.slb.nbndc.local/rsp_by_csa/#/');
     };
@@ -16,14 +19,14 @@ var LoginPage = function (driver) {
         signInMenu.click();
     };
 
-    this.enterUserName = function () {
+    this.enterUserName = function (username) {
         userId.clear();
-        userId.sendKeys('v-deepaksurendar');
+        userId.sendKeys(username);
     };
 
-    this.enterPassword = function () {
+    this.enterPassword = function (pwd) {
         password.clear();
-        password.sendKeys('siddhu123.');
+        password.sendKeys(pwd);
     };
 
     this.SignIn = function () {
@@ -34,8 +37,12 @@ var LoginPage = function (driver) {
         driver.quit();
     };
 
-    this.give = function () {
-        return true;
+    this.getError = function () {
+        return driver.findElement(alertDanger);
+    };
+
+    this.getE = function () {
+        return alertDanger;
     };
 };
 

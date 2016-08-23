@@ -11,13 +11,12 @@ describe('home page', function () {
     var loginPage = new LoginPage(driver);
     var homePage = new HomePage(driver);
 
-    before(function (done) {
+    before(function () {
         loginPage.get();
         loginPage.OpenSignInMenu();
-        loginPage.enterUserName();
-        loginPage.enterPassword();
-        loginPage.SignIn();
-        done();
+        loginPage.enterUserName('v-deepaksurendar');
+        loginPage.enterPassword('siddhu123.');
+        return loginPage.SignIn();
     });
 
     it('should display create RSP button', function (done) {
@@ -28,7 +27,7 @@ describe('home page', function () {
         });
     });
 
-    afterEach(function () {
-        driver.quit();
+    after(function () {
+        return driver.quit();
     });
 });
